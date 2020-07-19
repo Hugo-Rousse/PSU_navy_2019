@@ -34,21 +34,21 @@ int usage(void)
     return (0);
 }
 
-global_t reset_gbl(global_t gbl)
+global_t reset_gbl(global_t global)
 {
-    gbl.signal1 = 0;
-    gbl.signal2 = 0;
-    gbl.exit_cond = 0;
-    gbl.hit = 0;
-    return (gbl);
+    global.signal1 = 0;
+    global.signal2 = 0;
+    global.exit_cond = 0;
+    global.hit = 0;
+    return (global);
 }
 
 int main(int ac, char **av)
 {
     char **map;
 
-    gbl = reset_gbl(gbl);
-    gbl.win = 0;
+    global = reset_gbl(global);
+    global.win = 0;
     if (ac == 2 && av[1][0] == '-' && av[1][1] == 'h' && av[1][2] == 0)
         return (usage());
     if (ac < 2 || ac > 3)
@@ -56,5 +56,5 @@ int main(int ac, char **av)
     map = check_map(ac, av);
     if (map == NULL || map[0] == NULL)
         return (error_map(map));
-    return (ttyconnect(ac, av, map));
+    return (connect(ac, av, map));
 }

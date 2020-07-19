@@ -14,8 +14,8 @@ void takingsignals(void) // On met en place les signaux sigusr1 et sigusr2
     while (!global.exit_cond);
     while (global.exit_cond != 2);
     my_putstr("\n");
-    my_putnbr_base(global.sign1, "AABCDEFGH");
-    my_putnbr_base(global.sign2, "012345678");
+    my_putnbr_base(global.signal1, "AABCDEFGH");
+    my_putnbr_base(global.signal2, "012345678");
     my_putstr(":  ");
 }
 

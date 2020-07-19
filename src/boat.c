@@ -33,7 +33,7 @@ char **line(char **map, char **position, int i)
         if (is_num(map[y + position[i][3] - '1']\
         [(position[i][2] - 'A' + 1) * 2]))
             return (NULL);
-        map[y + position[i][3] - '1'][(position[i][2] - 'A' + 1) * 2] = pos[i][0];
+        map[y + position[i][3] - '1'][(position[i][2] - 'A' + 1) * 2] = position[i][0];
     }
     return (map);
 }

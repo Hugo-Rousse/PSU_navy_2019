@@ -8,12 +8,12 @@
 
 void get_pid(int sig, siginfo_t *info, void *context)
 {
-    gbl.signalPid = info->si_pid;
+    global.signalpid = info->si_pid;
     (void) sig;
     (void) context;
 }
 
-int ttypos1(void)
+int pos1(void)
 {
     int pid = getpid();
     struct sigaction act;
@@ -27,12 +27,12 @@ int ttypos1(void)
     my_putstr("waiting for enemy connection...\n");
     pause();
     usleep(1000);
-    kill(gbl.signalPid, SIGUSR2);
+    kill(global.signalpid, SIGUSR2);
     my_putstr("\nenemy connected\n\n");
-    return (gbl.signalPid);
+    return (global.signalpid);
 }
 
-int ttypos2(char **av)
+int pos2(char **av)
 {
     int enemyid = my_getnbr(av[1]);
     struct sigaction act;
@@ -42,7 +42,7 @@ int ttypos2(char **av)
     act.sa_sigaction = get_pid;
     sigaction(SIGUSR2, &act, NULL);
     usleep(10000);
-    if (gbl.signalPid != enemyid) {
+    if (global.signalpid != enemyid) {
         my_put_err("Seems that you entered a wrong PID ");
         my_put_err("(No response with that PID).\nExiting...\n");
         return (84);
@@ -51,7 +51,7 @@ int ttypos2(char **av)
     return (0);
 }
 
-int ttyconnect(int ac, char **av, char **pos)
+int connect(int ac, char **av, char **pos)
 {
     char **my_map = create_map();
     char **enemy_map = create_map();
@@ -61,10 +61,10 @@ int ttyconnect(int ac, char **av, char **pos)
     if (my_map == NULL)
         return (error_boat());
     if (ac == 2)
-        pid2 = ttypos1();
+        pid2 = pos1();
     else if (ac == 3) {
         putstr_nbr("my_pid: ", getpid());
-        if (ttypos2(av))
+        if (pos2(av))
             return (84);
     }
     if (!my_getnbr(av[1]))

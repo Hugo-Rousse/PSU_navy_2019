@@ -12,9 +12,9 @@ void handler(int i)
     if (i == 12)
         global.exit_cond++;
     if (i == 10 && global.exit_cond == 0)
-        global.sign1++;
+        global.signal1++;
     if (i == 10 && global.exit_cond != 0)
-        global.sign2++;
+        global.signal2++;
     if (i == 12 && global.exit_cond >= 3)
         global.win = 1;
 }
@@ -25,25 +25,25 @@ void receivingsignal(void)
     signal(SIGUSR2, handler);
     usleep(5000);
     if (global.exit_cond)
-        global.is_hit = my_putstr("hit\n");
+        global.hit = my_putstr("hit\n");
     else
         my_putstr("missed\n");
 }
 
 void sendsignal(char *entry, int pid2)
 {
-    global.sign1 = entry[0] - 64;
-    global.sign2 = entry[1] - '0';
+    global.signal1 = entry[0] - 64;
+    global.signal2 = entry[1] - '0';
     global.exit_cond = 0;
     usleep(5000);
-    for (int a = 0; a < global.sign1; a++) {
+    for (int a = 0; a < global.signal1; a++) {
         usleep(1000);
         kill(pid2, SIGUSR1);
         usleep(1000);
     }
     kill(pid2, SIGUSR2);
     usleep(1000);
-    for (int a = 0; a < global.sign2; a++) {
+    for (int a = 0; a < global.signal2; a++) {
         kill(pid2, SIGUSR1);
         usleep(1000);
     }

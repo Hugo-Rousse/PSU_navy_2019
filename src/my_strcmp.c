@@ -17,5 +17,18 @@ int my_strcmp(char const *s1, char const *s2)
             same++;
         i++;
     }
-    return (same - i);
+    return(same - i);
+}
+
+char *my_strcat(char *dest, char const *src)
+{
+    int i = 0;
+    int dest_len = my_strlen(dest);
+    
+    while (src[i] != '\0') {
+        dest[dest_len + i] = src[i];
+        i++;
+    }
+    dest[dest_len + i] = '\0';
+    return (dest);
 }
