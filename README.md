@@ -1,2 +1,2 @@
-# PSU_navy_2019
-Pas fini
+# PSU_navy_2019 #
+Projet pas fini pas fonctionnel.
